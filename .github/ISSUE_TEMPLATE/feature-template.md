@@ -1,7 +1,7 @@
 ---
-name: Feature request
-about: Suggest an idea for this project
-title: ''
+name: Feature template
+about: Template for new features to append in the Kanban board
+title: "[FEATURE] "
 labels: ''
 assignees: ''
 
