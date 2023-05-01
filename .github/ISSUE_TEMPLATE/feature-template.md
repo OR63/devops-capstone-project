@@ -1,7 +1,7 @@
 ---
-name: Feature template
-about: Template for new features to append in the Kanban board
-title: "[FEATURE] "
+name: User story
+about: This template is for creating user stories
+title: User story
 labels: ''
 assignees: ''
 
