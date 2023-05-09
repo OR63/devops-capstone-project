@@ -61,7 +61,14 @@ def create_accounts():
 # LIST ALL ACCOUNTS
 ######################################################################
 
-# ... place you code here to LIST accounts ...
+@app.route("/accounts", methods=["GET"])
+def list_accounts():
+    """
+    List all accounts
+    This endpoint will list all the accounts stored in the database
+    """
+    app.logger.info("Request all the accounts in the database")
+    return Account.all()
 
 
 ######################################################################
