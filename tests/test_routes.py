@@ -11,7 +11,8 @@ from unittest import TestCase
 from tests.factories import AccountFactory
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
-from service.routes import app
+from service.routes import app, list_accounts
+from faker import Faker
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
@@ -126,4 +127,26 @@ class TestAccountService(TestCase):
     # ADD YOUR TEST CASES HERE ...
     def test_list_all_accounts(self):
         """It should return the list of all the accounts stored in the database, with each user name and each user email."""
-        accounts_list=[]
+        
+        fake = Faker()
+        
+        # Remove all existing accounts from the database
+        db.session.query(Account).delete()
+        db.session.commit()
+
+        # Verifies the returnbed value is '[]' when there is no account
+        accounts=list_accounts()
+        print(accounts)
+        self.assertListEqual(accounts,[])
+
+
+        # Create some random accounts and add them to the database
+        num_accounts = 5
+        for i in range(num_accounts):
+            account = Account(name=fake.name(), email=fake.email())
+            account.create()
+
+        # Retrieve all accounts from the database and print their details
+        accounts = list_accounts()
+        for account in accounts:
+            print(f"Account: {account.name}, Email: {account.email}")

@@ -68,9 +68,7 @@ def list_accounts():
     This endpoint will list all the accounts stored in the database
     """
     app.logger.info("Request all the accounts in the database")
-    check_content_type("application/json")
-    account = Account()
-    return account.all()
+    return Account.all()
 
 
 ######################################################################
