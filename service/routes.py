@@ -8,6 +8,8 @@ from flask import jsonify, request, make_response, abort, url_for   # noqa; F401
 from service.models import Account
 from service.common import status  # HTTP Status Codes
 from . import app  # Import Flask application
+#from . import toto
+
 
 
 ############################################################
@@ -65,10 +67,13 @@ def create_accounts():
 def list_accounts():
     """
     List all accounts
-    This endpoint will list all the accounts stored in the database
+    This endpoint will list all Accounts
     """
-    app.logger.info("Request all the accounts in the database")
-    return Account.all()
+    app.logger.info("Request to list Accounts")
+    accounts = Account.all()
+    account_list = [account.serialize() for account in accounts]
+    app.logger.info("Returning [%s] accounts", len(account_list))
+    return jsonify(account_list), status.HTTP_200_OK
 
 
 ######################################################################

@@ -124,29 +124,11 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
-    # ADD YOUR TEST CASES HERE ...
-    def test_list_all_accounts(self):
-        """It should return the list of all the accounts stored in the database, with each user name and each user email."""
-        
-        fake = Faker()
-        
-        # Remove all existing accounts from the database
-        db.session.query(Account).delete()
-        db.session.commit()
-
-        # Verifies the returnbed value is '[]' when there is no account
-        accounts=list_accounts()
-        print(accounts)
-        self.assertListEqual(accounts,[])
-
-
-        # Create some random accounts and add them to the database
-        num_accounts = 5
-        for i in range(num_accounts):
-            account = Account(name=fake.name(), email=fake.email())
-            account.create()
-
-        # Retrieve all accounts from the database and print their details
-        accounts = list_accounts()
-        for account in accounts:
-            print(f"Account: {account.name}, Email: {account.email}")
+    # ADD YOUR TEST CASES HERE ... 
+    def test_get_account_list(self):
+        """It should Get a list of Accounts"""
+        self._create_accounts(5)
+        resp = self.client.get(BASE_URL)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        data = resp.get_json()
+        self.assertEqual(len(data), 5)
