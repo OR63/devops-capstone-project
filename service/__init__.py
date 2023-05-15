@@ -35,3 +35,15 @@ except Exception as error:  # pylint: disable=broad-except
     sys.exit(4)
 
 app.logger.info("Service initialized!")
+
+class bidon:
+    def __init__(self):
+        pass
+    def machin(self):
+        pass
+    def truc(self):
+        pass
+    def bidule(self):
+        pass
+
+toto=bidon()
