@@ -40,7 +40,7 @@ jobs:
 
       - name: Run unit tests with Nose
         run:  
-          nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
+          nosetests
         env:
           DATABASE_URI: "postgresql://postgres:pgs3cr3t@postgres:5432/testdb"
       
