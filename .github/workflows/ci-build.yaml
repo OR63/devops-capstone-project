@@ -17,7 +17,7 @@ jobs:
         ports: 
           - 5432:5432
         env:
-          POSTGRES_PASSWORD: pgs3crt3
+          POSTGRES_PASSWORD: pgs3cr3t
           POSTGRES_DB: testdb
         options: >-
           --health-cmd pg_isready
@@ -39,8 +39,7 @@ jobs:
           flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Run unit tests with Nose
-        run:  
-          nosetests
+        run: nosetests
         env:
           DATABASE_URI: "postgresql://postgres:pgs3cr3t@postgres:5432/testdb"
       
