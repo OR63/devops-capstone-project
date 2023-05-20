@@ -12,8 +12,7 @@ from tests.factories import AccountFactory
 from service import talisman
 from service.common import status  # HTTP Status Codes
 from service.models import db, Account, init_db
-from service.routes import app, list_accounts
-from faker import Faker
+from service.routes import app
 
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
@@ -127,7 +126,7 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(response.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
-    # ADD YOUR TEST CASES HERE ... 
+    # ADD YOUR TEST CASES HERE ...
     def test_get_account_list(self):
         """It should Get a list of Accounts"""
         self._create_accounts(5)
@@ -135,7 +134,7 @@ class TestAccountService(TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = resp.get_json()
         self.assertEqual(len(data), 5)
-        
+
     def test_read_an_account(self):
         """It should Read a single Account"""
         account = self._create_accounts(1)[0]
@@ -174,9 +173,9 @@ class TestAccountService(TestCase):
 
     def test_security_header(self):
         """It should return security header"""
-        response=self.client.get('/', environ_overrides=HTTPS_ENVIRON)
+        response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        headers={
+        headers = {
             'X-Frame-Options': 'SAMEORIGIN',
             'X-XSS-Protection': '1; mode=block',
             'X-Content-Type-Options': 'nosniff',
@@ -191,4 +190,4 @@ class TestAccountService(TestCase):
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for the CORS header
-        self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*' )
+        self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
